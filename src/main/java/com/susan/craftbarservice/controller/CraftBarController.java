@@ -3,6 +3,8 @@ package com.susan.craftbarservice.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,29 +25,38 @@ public class CraftBarController {
 	private CraftBarService service;
 	
 	@GetMapping("/beers")
-	public List<Beer> getBeers() {
-		return service.getBeers();
+	public ResponseEntity<List<Beer>> getBeers() {
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(service.getBeers());
 	}
 	
 	@GetMapping("/beers/{id}")
-	public Beer getBeer(@PathVariable Long id) {
-		return service.getBeer(id);
+	public ResponseEntity<Beer> getBeer(@PathVariable Long id) {
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(service.getBeer(id));
 	}
 	
 	@PostMapping("/beers")
-	public Beer addBeer(@RequestBody Beer beer) {
-		return service.addBeer(beer);
+	public ResponseEntity<Beer> addBeer(@RequestBody Beer beer) {
+		return ResponseEntity
+				.status(HttpStatus.CREATED)
+				.body(service.addBeer(beer));
 	}
 	
 	@PutMapping("/beers/{id}")
-	public Beer updateBeer(@RequestBody Beer updatedBeer, @PathVariable Long id) {
-		return service.updateBeer(updatedBeer, id);
+	public ResponseEntity<Beer> updateBeer(@RequestBody Beer updatedBeer, @PathVariable Long id) {
+		return ResponseEntity
+				.status(HttpStatus.CREATED)
+				.body(service.updateBeer(updatedBeer, id));
 				
 	}
 	
 	@DeleteMapping("/beers/{id}")
-	public void removeBeer(@PathVariable Long id) {
+	public ResponseEntity<?> removeBeer(@PathVariable Long id) {
 		service.removeBeer(id);
+		return ResponseEntity.noContent().build();
 	}
 
 }
