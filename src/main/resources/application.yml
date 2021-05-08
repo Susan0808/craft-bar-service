@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: craft-bar-service
+  datasource:
+    initialization-mode: EMBEDDED
+    url: jdbc:h2:mem:mydb
+    username: sa
+    password: null
+    platform: h2
+    
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
